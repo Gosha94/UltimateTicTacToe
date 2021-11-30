@@ -3,7 +3,7 @@ using System.Threading.Tasks;
 
 namespace TicTacToeGameApi.Services
 {
-    interface IGameLobbyService
+    public interface IGameLobbyService
     {
 
         Task<Guid> CreateGameLobby(string connectionId);

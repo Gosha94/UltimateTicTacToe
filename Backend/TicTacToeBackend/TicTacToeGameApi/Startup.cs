@@ -4,6 +4,7 @@ using Microsoft.Extensions.Hosting;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using TicTacToeGameApi.Hubs;
+using TicTacToeGameApi.Services;
 
 namespace TicTacToeGameApi
 {
@@ -21,6 +22,7 @@ namespace TicTacToeGameApi
         {
             services.AddControllers();
             services.AddSignalR();
+            services.AddSingleton<IGameLobbyService, GameLobbyService>();
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
