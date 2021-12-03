@@ -21,7 +21,9 @@ namespace TicTacToeGameApi
         public void ConfigureServices(IServiceCollection services)
         {
             services.AddControllers();
+
             services.AddSignalR();
+            
             services.AddSingleton<IGameLobbyService, GameLobbyService>();
         }
 
@@ -31,6 +33,11 @@ namespace TicTacToeGameApi
             if (env.IsDevelopment())
             {
                 app.UseDeveloperExceptionPage();
+            }
+            else
+            {
+                app.UseExceptionHandler("/Error");
+                app.UseHsts();
             }
 
             app.UseHttpsRedirection();
@@ -42,8 +49,9 @@ namespace TicTacToeGameApi
             app.UseEndpoints(endpoints =>
             {
                 endpoints.MapControllers();
-                endpoints.MapHub<LobbysHub>("/lobbysHub");
+                endpoints.MapHub<LobbysHub>("/lobbyshub");
             });
+
         }
     }
 }

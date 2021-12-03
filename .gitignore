@@ -12,3 +12,6 @@
 /Frontend/TicTacToeFrontend/TicTacToeFrontend.Console/obj/project.nuget.cache
 /Frontend/TicTacToeFrontend/TicTacToeFrontend.Console/obj/project.assets.json
 /Frontend/TicTacToeFrontend/TicTacToeFrontend.Console/obj/Debug/netcoreapp3.1
+/Backend/TicTacToeBackend/.vs/TicTacToeBackend/DesignTimeBuild
+/Frontend/TicTacToeFrontend/.vs/TicTacToeFrontend/DesignTimeBuild
+/Frontend/TicTacToeFrontend/TicTacToeFrontend.Console/bin/Debug/netcoreapp3.1
