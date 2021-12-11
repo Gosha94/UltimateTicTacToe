@@ -1,4 +1,6 @@
 ﻿using System;
+using TicTacToeFrontend.ConsoleApp.Base;
+using TicTacToeFrontend.ConsoleApp.Views;
 
 namespace TicTacToeFrontend.ConsoleApp
 {
@@ -9,7 +11,9 @@ namespace TicTacToeFrontend.ConsoleApp
         {
             var connection = new SignalRConnection();
             connection.StartConnectionAsync();
+            WaitingRoomContentView w = new WaitingRoomContentView();
 
+            w.ClearConsole();
             Console.Read();
         }
     }
