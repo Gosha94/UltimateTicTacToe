@@ -16,29 +16,20 @@ namespace TicTacToeGameApi.Hubs
         public LobbysHub()
         {
             _gameWaitingRoom = new WaitingRoom();
-            _gameWaitingRoom = new List<Game>();
         }
-        
 
         #region Public API
 
-        public async Task AddNewPlayerToWaitingRoom(string userName, int clientId)
-        {
-            _gameWaitingRoom.WaitingRoomPlayersList.Add(new Player()); 
-        }
+        public async Task<bool> AddNewPlayerToWaitingRoom(string userName)
+            => await Task.Run( () => _gameWaitingRoom.AddPlayerToWaitingRoomOnUserName(userName) );
 
-        public async Task GetPlayersListInWaitingRoom()
-        {
-            Clients.AllExcept()
-        }
 
-        public async Task ServerSend(string message)
-        {
-            await Clients.All.SendAsync("ReceiveMessageOnClient", message);
-        }
+        public async Task<bool> RemovePlayerFromWaitingRoom(string userName)
+            => await Task.Run(() => _gameWaitingRoom.RemovePlayerFromWaitingRoomOnUserName(userName));
 
-        public TestModel GetActualModel()
-            => _model;
+
+        public async Task<List<string>> GetWaitingRoomPlayersList()
+            => await Task.Run( () => _gameWaitingRoom.GetPlayersListFromWaitingRoom() );
 
         public override async Task OnConnectedAsync()
         {
