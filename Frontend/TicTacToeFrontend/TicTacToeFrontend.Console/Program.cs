@@ -1,5 +1,4 @@
 ﻿using System;
-using TicTacToeFrontend.ConsoleApp.Base;
 using TicTacToeFrontend.ConsoleApp.Views;
 
 namespace TicTacToeFrontend.ConsoleApp
