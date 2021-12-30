@@ -4,6 +4,6 @@ namespace TicTacToeFrontend.ConsoleApp.Views
 {
     internal sealed class WaitingRoomContentView : ContentViewBase
     {
-
+        internal void ViewAllWaitingRoomPlayersData() { }
     }
 }

@@ -10,9 +10,7 @@ namespace TicTacToeFrontend.ConsoleApp
         {
             var connection = new SignalRConnection();
             connection.StartConnectionAsync();
-            WaitingRoomContentView w = new WaitingRoomContentView();
 
-            w.ClearConsole();
             Console.Read();
         }
     }

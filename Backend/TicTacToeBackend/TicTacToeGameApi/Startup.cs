@@ -24,7 +24,7 @@ namespace TicTacToeGameApi
 
             services.AddSignalR();
             
-            services.AddSingleton<IGameLobbyService, GameLobbyService>();
+            services.AddSingleton<IGameLobbyService, GameManagementService>();
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.

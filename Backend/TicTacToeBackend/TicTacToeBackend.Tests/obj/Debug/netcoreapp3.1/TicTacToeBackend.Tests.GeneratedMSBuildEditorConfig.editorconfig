@@ -1,0 +1,3 @@
+is_global = true
+build_property.RootNamespace = TicTacToeBackend.Tests
+build_property.ProjectDir = D:\Projects\_NET\UltimateTicTacToe\Backend\TicTacToeBackend\TicTacToeBackend.Tests\
