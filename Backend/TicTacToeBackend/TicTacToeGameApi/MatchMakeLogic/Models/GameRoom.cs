@@ -11,7 +11,7 @@ namespace TicTacToeGameApi.MatchMakeLogic.Models
         /// <summary>
         /// Поле описывает Список игроков, попавших в Комнату Ожидания
         /// </summary>
-        private readonly List<Player> _playersWaitGameList;
+        private readonly List<Player> _playersList;
 
         /// <summary>
         /// Поле описывает Чат для игроков в комнате
@@ -27,8 +27,11 @@ namespace TicTacToeGameApi.MatchMakeLogic.Models
 
         internal bool IsRoomReady
         {
-            get => _playersWaitGameList.All(x => x.IsReadyForGame);
+            get => _playersList.All(x => x.IsReadyForGame);
         }
+
+        internal bool Empty { get => _playersList.Count == 0; }
+
         /// <summary>
         /// Св-во описывает идентификатор комнаты
         /// </summary>
@@ -39,7 +42,7 @@ namespace TicTacToeGameApi.MatchMakeLogic.Models
         /// </summary>
         public GameRoom(int playersRoomLimit)
         {
-            _playersWaitGameList = new List<Player>();
+            _playersList = new List<Player>();
             _gameChat = new GameChat();
             PlayersRoomLimit = playersRoomLimit;
             RoomGuid = new Guid();
@@ -51,13 +54,13 @@ namespace TicTacToeGameApi.MatchMakeLogic.Models
         /// <param name="userName">Добавляемый игрок</param>
         public string Add(string userName)
         {
-            if (_playersWaitGameList.Count >= PlayersRoomLimit)
+            if (_playersList.Count >= PlayersRoomLimit)
             {
                 throw new ArgumentOutOfRangeException($"Лимит игроков в комнате {RoomGuid} превысил {PlayersRoomLimit} ед.");
             }
 
             var addedPlayer = new Player(userName);
-            _playersWaitGameList.Add(addedPlayer);
+            _playersList.Add(addedPlayer);
             
             return addedPlayer.PlayerName;
         }
@@ -68,8 +71,8 @@ namespace TicTacToeGameApi.MatchMakeLogic.Models
         /// <param name="userName">Удаляемый игрок</param>
         public string Remove(string userName)
         {
-            var findedPlayer = _playersWaitGameList.Find(x => x.PlayerName == userName);
-            _playersWaitGameList.Remove(findedPlayer);
+            var findedPlayer = _playersList.Find(x => x.PlayerName == userName);
+            _playersList.Remove(findedPlayer);
             return findedPlayer.PlayerName;
         }
 
@@ -79,9 +82,9 @@ namespace TicTacToeGameApi.MatchMakeLogic.Models
         /// <returns>Статус очистки комнаты</returns>
         public bool Clear()
         {
-            _playersWaitGameList.Clear();
+            _playersList.Clear();
             
-            if (_playersWaitGameList.Count > 0)
+            if (_playersList.Count > 0)
             {
                 return false;
             }
@@ -97,7 +100,7 @@ namespace TicTacToeGameApi.MatchMakeLogic.Models
         {
             var resultPlayersDataList = new List<string>();
 
-            foreach (var player in _playersWaitGameList)
+            foreach (var player in _playersList)
             {
                 resultPlayersDataList.Add($"{player.PlayerName}");
             }
