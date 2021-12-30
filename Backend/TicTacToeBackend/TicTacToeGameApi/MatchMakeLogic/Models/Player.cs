@@ -4,18 +4,20 @@ namespace TicTacToeGameApi.MatchMakeLogic.Models
 {
     internal struct Player
     {
-
-        private readonly string _playerName;
-        public string PlayerName { get => _playerName; }
-
-        private readonly Guid _playerGuid;
-        public Guid PlayerGuid { get => _playerGuid; }
+        internal bool IsReadyForGame { get; private set; }
+        internal string PlayerName { get; }
+        internal Guid PlayerGuid { get; }
 
         public Player(string playerName)
         {
-            _playerName = playerName;
-            _playerGuid = new Guid();
+            PlayerName = playerName;
+            PlayerGuid = new Guid();
+            // TODO fix for some randomize...
+            IsReadyForGame = false;
         }
-        
+
+        internal void ChangeGameReadyState()
+            => IsReadyForGame = !IsReadyForGame;
+
     }
 }

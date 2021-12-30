@@ -1,33 +1,61 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Linq;
+using System.Collections.Generic;
 using TicTacToeGameApi.MatchMakeLogic.Contracts;
 
 namespace TicTacToeGameApi.MatchMakeLogic.Models
 {
-    public sealed class GameRoom : IRoom
+    internal sealed class GameRoom : IRoom
     {
 
         /// <summary>
-        /// Св-во описывает Список игроков, попавших в Комнату Ожидания
+        /// Поле описывает Список игроков, попавших в Комнату Ожидания
         /// </summary>
         private readonly List<Player> _playersWaitGameList;
 
+        /// <summary>
+        /// Поле описывает Чат для игроков в комнате
+        /// </summary>
         private readonly GameChat _gameChat;
+
+        internal Game Game { get; private set; }
+
+        /// <summary>
+        /// Св-во описывает лимит игроков в комнате
+        /// </summary>
+        internal int PlayersRoomLimit { get; }
+
+        internal bool IsRoomReady
+        {
+            get => _playersWaitGameList.All(x => x.IsReadyForGame);
+        }
+        /// <summary>
+        /// Св-во описывает идентификатор комнаты
+        /// </summary>
+        internal Guid RoomGuid { get; }
 
         /// <summary>
         /// Конструктор
         /// </summary>
-        public GameRoom()
+        public GameRoom(int playersRoomLimit)
         {
             _playersWaitGameList = new List<Player>();
             _gameChat = new GameChat();
+            PlayersRoomLimit = playersRoomLimit;
+            RoomGuid = new Guid();
         }
 
         /// <summary>
-        /// Метод добавляет Игрока в комнату Ожидания
+        /// Метод добавляет Игрока в комнату
         /// </summary>
         /// <param name="userName">Добавляемый игрок</param>
         public string Add(string userName)
         {
+            if (_playersWaitGameList.Count >= PlayersRoomLimit)
+            {
+                throw new ArgumentOutOfRangeException($"Лимит игроков в комнате {RoomGuid} превысил {PlayersRoomLimit} ед.");
+            }
+
             var addedPlayer = new Player(userName);
             _playersWaitGameList.Add(addedPlayer);
             
@@ -35,7 +63,7 @@ namespace TicTacToeGameApi.MatchMakeLogic.Models
         }
 
         /// <summary>
-        /// Метод удаляет Игрока из комнаты Ожидания
+        /// Метод удаляет Игрока из комнаты
         /// </summary>
         /// <param name="userName">Удаляемый игрок</param>
         public string Remove(string userName)
@@ -60,11 +88,11 @@ namespace TicTacToeGameApi.MatchMakeLogic.Models
 
             return true;
         }
-
+        
         /// <summary>
-        /// Метод возвращает список игроков в комнате ожидания
+        /// Метод возвращает список игроков в комнате
         /// </summary>
-        /// <returns></returns>
+        /// <returns>List of Player Logins</returns>
         public IEnumerable<string> GetAllPlayers()
         {
             var resultPlayersDataList = new List<string>();
