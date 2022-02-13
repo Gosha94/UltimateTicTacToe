@@ -1,0 +1,73 @@
+﻿@page "/matchdata"
+
+@using Core
+@using Microsoft.AspNetCore.Components.Web;
+@using Microsoft.AspNetCore.SignalR.Client;
+
+<PageTitle>MatchData</PageTitle>
+
+<h1>MatchData</h1>
+
+<div class="d-flex flex-row bg-info w-50">
+    
+    <div class="p-2">
+        <h3>Game Rooms List</h3>
+        <ul class="list-group">
+            <li class="list-group-item"><a href="/counter">Sunday</a></li>
+            <li class="list-group-item"><a href="/matchdata">Sunday</a></li>
+            <li class="list-group-item">Tuesday</li>
+            <li class="list-group-item">Wednesday</li>
+            <li class="list-group-item">Thursday</li>
+            <li class="list-group-item">Friday</li>
+            <li class="list-group-item">Saturday</li>
+         </ul>
+    </div>
+    
+    <div class="p-2">
+        <h3>Waiting Rooms List</h3>
+        <ul class="list-group">
+            <li class="list-group-item"><a href="/counter">Sunday</a></li>
+            <li class="list-group-item"><a href="/matchdata">Sunday</a></li>
+            <li class="list-group-item">Tuesday</li>            
+         </ul>
+    </div>
+    <div class="p-2">
+        <h3>Total players in Rooms: @totalRoomsPlayers</h3>
+    </div>
+</div>
+
+<div class="d-flex flex-row bg-danger w-50">
+    <div class="p-2">
+        <h3>Game Room Players</h3>
+        <button class="btn btn-primary" @onclick="ChangeVisibilityGameRoomPlayersList">Show/Hide Players List</button>
+        <ul class="list-group" hidden = "@isGameRoomPlayersListHidden">
+            <li class="list-group-item"><a href="/matchdata">Sunday</a></li>
+        </ul>
+    </div>
+
+    <div class="p-2">
+        <h3>Waiting Room Players</h3>
+        <button class="btn btn-primary" @onclick="ChangeVisibilityWaitingRoomPlayersList">Show/Hide Players List</button>
+        <ul class="list-group" hidden = "@isWaitingRoomPlayersListHidden">
+            <li class="list-group-item"><a href="/matchdata">Sunday</a></li>
+        </ul>
+    </div>
+</div>
+
+@code {
+
+    private bool isWaitingRoomPlayersListHidden = true;
+    private bool isGameRoomPlayersListHidden = true;
+    private const int totalRoomsPlayers = 999;
+
+    private void ChangeVisibilityWaitingRoomPlayersList()
+    {
+        isWaitingRoomPlayersListHidden = !isWaitingRoomPlayersListHidden;
+    }
+
+    private void ChangeVisibilityGameRoomPlayersList()
+    {
+        isGameRoomPlayersListHidden = !isGameRoomPlayersListHidden;
+    }
+
+}
