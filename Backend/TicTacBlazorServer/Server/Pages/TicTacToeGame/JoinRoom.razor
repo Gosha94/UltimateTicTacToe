@@ -1,0 +1,27 @@
+﻿@page "/joinroom"
+
+<PageTitle>JoinRoom</PageTitle>
+
+<h3>JoinRoom</h3>
+
+<form>
+    <div class="form-group w-25">
+        <label for="roomIdInput">Room Id</label>
+        <input type="number" class="form-control" id="roomIdInput" placeholder="Enter Room Id" @bind="@enteredRoomId" disabled="@isUserWantRandomRoomJoin">
+        <input type="checkbox" class="form-check-input" id="randomRoomJoinCheckBox" value="@isUserWantRandomRoomJoin" @onchange="ChangeRoomIdInputState" >
+        <label class="form-check-label" for="randomRoomJoinCheckBox">Join Random Room</label>
+    </div>
+    
+    <button type="submit" class="btn btn-primary">Join Room</button>
+</form>
+
+
+@code {
+    private int? enteredRoomId { get; set; }
+    private bool isUserWantRandomRoomJoin { get; set; } = false;
+
+    private void ChangeRoomIdInputState()
+    {
+        isUserWantRandomRoomJoin = !isUserWantRandomRoomJoin;
+    }
+}
